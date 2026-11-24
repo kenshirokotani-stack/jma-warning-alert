@@ -1,5 +1,4 @@
 {
- "active": {},
  "seen": [
   "https://www.data.jma.go.jp/developer/xml/data/20261119092933_0_VPWW61_290000.xml",
   "https://www.data.jma.go.jp/developer/xml/data/20261119092938_0_VPWW54_290000.xml",
@@ -20,6 +19,12 @@
  ],
  "notified": {},
  "last_long": "2026-11-24T12:30:33.364028+09:00",
- "last_checked": "2026-11-24T13:10:25.860580+09:00",
- "consecutive_failures": 0
+ "last_checked": "2026-11-24T13:13:28.509233+09:00",
+ "consecutive_failures": 0,
+ "src": {
+  "H27": {},
+  "R06": {}
+ },
+ "flood": {},
+ "flood_notified": {}
 }
