@@ -1,1 +1,24 @@
-{}
+{
+ "active": {},
+ "seen": [
+  "https://www.data.jma.go.jp/developer/xml/data/20261119092933_0_VPWW61_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261119092938_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261119195855_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261120010731_0_VPWW61_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261120010740_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261121004220_0_VPWW61_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261121004231_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261121015828_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261121191711_0_VPWW61_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261121191726_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261121195829_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261123120907_0_VPWW61_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261123120916_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261123192115_0_VPWW61_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261123192129_0_VPWW54_290000.xml"
+ ],
+ "notified": {},
+ "last_long": "2026-11-24T10:18:59.668695+09:00",
+ "last_checked": "2026-11-24T10:18:59.668695+09:00",
+ "consecutive_failures": 0
+}
