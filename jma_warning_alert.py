@@ -12,6 +12,7 @@ import json
 import os
 import sys
 import time
+import unicodedata
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 
@@ -29,7 +30,10 @@ DEFAULT_AREAS = (
     "平群町,三郷町,斑鳩町,安堵町,川西町,三宅町,田原本町,王寺町,上牧町,広陵町,河合町,"
     "高取町,明日香村"
 )
-KEYWORDS = ("大雨", "洪水")  # この語を含む種類だけ見る(暴風・雷などは対象外)
+KEYWORDS = ("大雨", "洪水", "氾濫")  # この語を含む種類だけ見る(暴風・雷などは対象外)
+# 従来形式(H27)は1つの電文に全種類が入る。新形式(R06)は種類ごとに分かれ内容が部分的なので、
+# 実際の形を確認するまで状態の更新には使わない。
+FORMAT_MARK = "H27"
 
 
 def severity(kind):
@@ -66,7 +70,7 @@ def parse_feed(text):
     return out
 
 
-def parse_warning(text, areas):
+def parse_warning(text, areas, names_seen=None):
     """VPWW54 を読み、{市町村: [種類...]} (その電文で内容が示された市町村のみ)を返す。
     発表・継続の種類だけが有効。「解除」「なし」は含めない(=空リストで上書き)。"""
     root = strip_ns(ET.fromstring(text))
@@ -79,6 +83,8 @@ def parse_warning(text, areas):
             continue
         for item in w.findall("Item"):
             name = (item.findtext("Area/Name") or "").strip()
+            if names_seen is not None and name:
+                names_seen.add(name)
             if name not in areas:
                 continue
             active = result.setdefault(name, [])
@@ -149,14 +155,23 @@ def run(state, topic, areas, now, fetch=get, notify=send_ntfy):
     for e in entries:
         if e["url"] in seen or e["url"] in uniq:
             continue
-        if OFFICE not in e["author"] or "気象警報・注意報" not in e["title"]:
+        if OFFICE not in e["author"] or "警報・注意報" not in e["title"]:
             continue
+        if "特別警報・警報・注意報" in e["title"]:
+            continue  # 府県予報区の電文(VPWW53)。市町村の電文(VPWW54)だけ使う
         uniq.add(e["url"])
         todo.append(e)
     todo.sort(key=lambda e: e["updated"])
 
+    names_seen = set()
     for e in todo:
-        updates = parse_warning(fetch(e["url"]), areas)
+        norm = unicodedata.normalize("NFKC", e["title"]).upper()
+        if FORMAT_MARK not in norm:
+            # 確認用: 使わない形式の電文はタイトルだけ記録して、既読にする
+            print(f"INFO 未対応形式のため状態更新に使わない: {e['title']} {e['url']}")
+            state["seen"].append(e["url"])
+            continue
+        updates = parse_warning(fetch(e["url"]), areas, names_seen)
         for area, kinds in updates.items():
             if kinds:
                 state["active"][area] = kinds
@@ -166,6 +181,9 @@ def run(state, topic, areas, now, fetch=get, notify=send_ntfy):
         state["seen"].append(e["url"])
 
     state["seen"] = state["seen"][-400:]
+    unknown = sorted(n for n in names_seen if n not in areas)
+    if unknown:
+        print("INFO 電文に出た市町村名(対象外): " + "、".join(unknown))
 
     # 新しく出た種類だけ通知(同じ注意報・警報は1回だけ)
     new_items = []
