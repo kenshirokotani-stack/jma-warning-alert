@@ -1,7 +1,12 @@
 name: JMA warning alert (Nara basin)
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "テスト通知だけ送る(true)"
+        required: false
+        default: "false"
 
 concurrency:
   group: jma-warning-alert
@@ -23,6 +28,7 @@ jobs:
       - name: Check JMA warnings
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          TEST_NOTIFY: ${{ github.event.inputs.test }}
         run: python jma_warning_alert.py
       - name: Commit updated state
         if: always()
