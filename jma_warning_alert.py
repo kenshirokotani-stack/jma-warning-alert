@@ -193,6 +193,11 @@ def main():
     if not topic:
         print("NTFY_TOPIC が未設定です", file=sys.stderr)
         sys.exit(2)
+    if os.environ.get("TEST_NOTIFY") == "true":
+        # テスト通知: 状態ファイルには触れず、通知の経路だけ確認する
+        send_ntfy(topic, "【テスト】注意報・警報の通知", "これはテスト通知です。この通知が届けば、経路は正常です。", 3, ["white_check_mark"])
+        print("テスト通知を送りました")
+        sys.exit(0)
     areas = {a.strip() for a in os.environ.get("AREAS", DEFAULT_AREAS).split(",") if a.strip()}
     path = os.environ.get("STATE_FILE", "data/state.json")
     fail_n = int(os.environ.get("FAIL_ALERT_COUNT", "3"))
