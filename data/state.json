@@ -20,8 +20,8 @@
   "https://www.data.jma.go.jp/developer/xml/data/20261124060900_0_VPWW54_290000.xml"
  ],
  "notified": {},
- "last_long": "2026-11-26T10:00:42.499911+09:00",
- "last_checked": "2026-11-26T10:50:22.472567+09:00",
+ "last_long": "2026-11-26T11:00:40.589919+09:00",
+ "last_checked": "2026-11-26T11:00:40.589919+09:00",
  "consecutive_failures": 0,
  "src": {
   "H27": {},
