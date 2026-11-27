@@ -22,11 +22,12 @@
   "https://www.data.jma.go.jp/developer/xml/data/20261127005428_0_VPWW54_290000.xml",
   "https://www.data.jma.go.jp/developer/xml/data/20261127015758_0_VPWW54_290000.xml",
   "https://www.data.jma.go.jp/developer/xml/data/20261127061229_0_VPWW61_290000.xml",
-  "https://www.data.jma.go.jp/developer/xml/data/20261127061239_0_VPWW54_290000.xml"
+  "https://www.data.jma.go.jp/developer/xml/data/20261127061239_0_VPWW54_290000.xml",
+  "https://www.data.jma.go.jp/developer/xml/data/20261127075811_0_VPWW54_290000.xml"
  ],
  "notified": {},
- "last_long": "2026-11-27T16:00:40.201121+09:00",
- "last_checked": "2026-11-27T16:50:24.190045+09:00",
+ "last_long": "2026-11-27T17:00:42.955977+09:00",
+ "last_checked": "2026-11-27T17:00:42.955977+09:00",
  "consecutive_failures": 0,
  "src": {
   "H27": {},
